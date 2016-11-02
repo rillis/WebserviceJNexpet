@@ -299,6 +299,36 @@
 			    }
 					mysqli_close($this->conn);
 			    return $emparray;
-					}
+			}
+			public function getUserByUID($unique){
+						$query = "SELECT * FROM tbUsuario WHERE unique_index='".$unique."'";
+						mysqli_query($this->conn,'SET CHARACTER SET utf8');
+						$result = mysqli_query($this->conn, $query);
+						$row = mysqli_fetch_array($result);
+								mysqli_close($this->conn);
+								return $row;
+			}
+			public function pagar($id){
+				$query = "UPDATE tbAgendado SET pagou=1 WHERE id=".$id;
+				mysqli_query($this->conn, 'SET CHARACTER SET utf8');
+				if(mysqli_query($this->conn, $query)){
+					mysqli_close($this->conn);
+					return "Alterado com sucesso (Pago)";
+				}else{
+					mysqli_close($this->conn);
+					return "Erro (Pago)";
+				}
+			}
+			public function confirmar($id){
+				$query = "UPDATE tbAgendado SET confirmado=1 WHERE id=".$id;
+				mysqli_query($this->conn, 'SET CHARACTER SET utf8');
+				if(mysqli_query($this->conn, $query)){
+					mysqli_close($this->conn);
+					return "Confirmado com sucesso (Confirmar)";
+				}else{
+					mysqli_close($this->conn);
+					return "Erro (Confirmar)";
+				}
+			}
 	}
 ?>
